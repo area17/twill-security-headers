@@ -35,7 +35,7 @@ class CreateTwillSecurityHeadersTables extends Migration
             $table->boolean('permissions_policy_enabled')->default(true);
             $table->json('permissions_policy')->nullable();
 
-            $table->json('unwanted_headers')->default("['X-Powered-By', 'server', 'Server']");
+            $table->json('unwanted_headers')->default('["X-Powered-By", "server", "Server"]');
         });
 
         Schema::create('twill_security_headers_revisions', function (Blueprint $table) {

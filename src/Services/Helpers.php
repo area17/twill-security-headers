@@ -2,7 +2,7 @@
 
 namespace A17\TwillSecurityHeaders\Services;
 
-use A17\TwillSecurityHeaders\Support\TwillSecurityHeaders;
+use A17\TwillSecurityHeaders\Services\TwillSecurityHeaders;
 
 class Helpers
 {

@@ -1,13 +1,10 @@
 <?php
 
-namespace A17\TwillSecurityHeaders\Support;
+namespace A17\TwillSecurityHeaders\Services;
 
 use A17\SecurityHeaders\SecurityHeaders;
-use A17\TwillSecurityHeaders\Services\Config;
-use A17\TwillSecurityHeaders\Services\Middleware;
 use A17\TwillSecurityHeaders\Models\Behaviors\Encrypt;
-use A17\TwillSecurityHeaders\Models\TwillSecurityHeaders as TwillSecurityHeadersModel;
-use Illuminate\Http\Response;
+use A17\TwillSecurityHeaders\Models\TwillSecurityHeader as TwillSecurityHeadersModel;
 
 class TwillSecurityHeaders
 {

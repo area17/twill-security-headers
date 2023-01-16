@@ -14,7 +14,7 @@ use A17\TwillSecurityHeaders\Support\Facades\TwillSecurityHeaders as TwillSecuri
 /**
  * @property string|null $domain
  */
-class TwillSecurityHeaders extends Model
+class TwillSecurityHeader extends Model
 {
     use HasRevisions;
     use Encrypt;
@@ -24,24 +24,6 @@ class TwillSecurityHeaders extends Model
     protected $fillable = ['published', 'domain', 'protected', 'unprotected'];
 
     protected $appends = ['domain_string', 'status', 'from_dot_env'];
-
-    public function getProtectedAttribute(): string|null
-    {
-        return $this->decrypt(
-            \A17\TwillHttpBasicAuth\Services\Helpers::instance()
-                                                    ->setCurrent($this)
-                                                    ->protectedContents(true),
-        );
-    }
-
-    public function getUnprotectedAttribute(): string|null
-    {
-        return $this->decrypt(
-            \A17\TwillHttpBasicAuth\Services\Helpers::instance()
-                                                    ->setCurrent($this)
-                                                    ->unprotectedContents(true),
-        );
-    }
 
     public function getPublishedAttribute(): string|null
     {

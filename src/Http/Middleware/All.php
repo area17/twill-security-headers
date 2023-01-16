@@ -10,6 +10,6 @@ class All extends Middleware
 {
     public function handle(Request $request, Closure $next): mixed
     {
-        return $this->middleware($request, $next, '*');
+        return $this->middleware($request, $next);
     }
 }

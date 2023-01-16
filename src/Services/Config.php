@@ -3,8 +3,8 @@
 namespace A17\TwillSecurityHeaders\Services;
 
 use Illuminate\Support\Arr;
-use A17\TwillSecurityHeaders\Repositories\TwillSecurityHeadersRepository;
-use A17\TwillSecurityHeaders\Models\TwillSecurityHeaders as TwillSecurityHeadersModel;
+use A17\TwillSecurityHeaders\Repositories\TwillSecurityHeaderRepository;
+use A17\TwillSecurityHeaders\Models\TwillSecurityHeader as TwillSecurityHeadersModel;
 
 trait Config
 {
@@ -31,7 +31,7 @@ trait Config
     protected function readFromDatabase(string $key): string|bool|null
     {
         if (blank($this->current)) {
-            $domains = app(TwillSecurityHeadersRepository::class)->orderBy('domain');
+            $domains = app(TwillSecurityHeaderRepository::class)->orderBy('domain');
 
             if ($this->hasDotEnv()) {
                 $domains->where('domain', '*');
@@ -67,7 +67,7 @@ trait Config
             return null;
         }
 
-        return $this->decrypt($this->current->getAttributes()[$key]);
+        return $this->current->getAttributes()[$key] ?? null;
     }
 
     public function hasDotEnv(): bool
@@ -77,8 +77,7 @@ trait Config
 
     protected function isConfigured(): bool
     {
-        return $this->isConfigured ??
-            $this->hasDotEnv() || (filled($this->protectedContents(true)) && filled($this->unprotectedContents(true)));
+        return $this->isConfigured ?? $this->hasDotEnv();
     }
 
     protected function setConfigured(): void
