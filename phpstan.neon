@@ -1,0 +1,22 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    paths:
+        - src
+
+    level: 8
+
+    checkMissingIterableValueType: false
+
+    universalObjectCratesClasses:
+
+    ignoreErrors:
+
+    reportUnmatchedIgnoredErrors: false
+
+    checkGenericClassInNonGenericObjectType: false
+
+    excludePaths:
+      analyseAndScan:
+        - src/Models/Behaviors/Encrypt.php

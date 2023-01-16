@@ -1,0 +1,35 @@
+{
+  "name": "area17/twill-security-headers",
+  "description": "A Twill Capsule to add and handle Security Headers",
+  "homepage": "https://github.com/area17/twill-security-headers",
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">=8.0",
+    "area17/twill": "^2.7|^3.0"
+  },
+  "require-dev": {
+      "nunomaduro/larastan": "^2.0",
+      "phpstan/phpstan": "^1.8",
+      "orchestra/testbench": "^7.11",
+      "friendsofphp/php-cs-fixer": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "A17\\TwillSecurityHeaders\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "A17\\TwillSecurityHeaders\\ServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+      "post-autoload-dump": [
+          "npx husky install"
+      ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
