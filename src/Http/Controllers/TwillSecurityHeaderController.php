@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use A17\Twill\Http\Controllers\Admin\ModuleController;
 use A17\TwillSecurityHeaders\Models\TwillSecurityHeader;
 use A17\TwillSecurityHeaders\Repositories\TwillSecurityHeaderRepository;
+use Illuminate\Support\Str;
 
 class TwillSecurityHeaderController extends ModuleController
 {
@@ -51,6 +52,6 @@ class TwillSecurityHeaderController extends ModuleController
 
     protected function getViewPrefix(): string|null
     {
-        return 'twill-google-recaptcha::admin';
+        return Str::kebab($this->moduleName).'::admin';
     }
 }

@@ -2,10 +2,9 @@
 
 namespace A17\TwillSecurityHeaders;
 
-use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use A17\Twill\Facades\TwillCapsules;
+use Illuminate\Contracts\Http\Kernel;
 use A17\Twill\TwillPackageServiceProvider;
 use A17\TwillSecurityHeaders\Services\TwillSecurityHeaders;
 
