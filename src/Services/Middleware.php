@@ -10,6 +10,10 @@ trait Middleware
 {
     public function middleware(Response|RedirectResponse $response, string|array $types = '*'): Response|RedirectResponse
     {
+        if (!$this->config('enabled_inside_twill') && $this->runningOnTwill()) {
+            return $response;
+        }
+
         $this->getHeaders($types)->each(fn($header) => $this->setHeaders($response, $header));
 
         return $response;

@@ -3,8 +3,6 @@
 namespace A17\TwillSecurityHeaders\Models;
 
 use A17\Twill\Models\Model;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Crypt;
 use A17\Twill\Models\Behaviors\HasRevisions;
 use A17\TwillSecurityHeaders\Services\Helpers;
 use Illuminate\Database\Eloquent\Relations\HasMany;

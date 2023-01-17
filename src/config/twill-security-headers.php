@@ -4,13 +4,15 @@ return [
     'middleware' => [
         'automatic' => true,
 
+        'enabled_inside_twill' => false,
+
         'groups' => [
             [
                 'group' => 'web',
                 'type' => 'prepend',
                 'classes' => [
                     \A17\TwillSecurityHeaders\Http\Middleware\All::class
-                ]
+                ],
             ],
 
             [
@@ -18,7 +20,7 @@ return [
                 'type' => 'prepend',
                 'classes' => [
                     \A17\TwillSecurityHeaders\Http\Middleware\All::class
-                ]
+                ],
             ]
         ],
     ],
@@ -79,5 +81,7 @@ return [
             'default' => '1; mode=block',
             'service' => \A17\TwillSecurityHeaders\Services\Headers\XSSProtection::class,
         ],
-    ]
+    ],
+
+    'twill_route_name_prefix' => 'admin',
 ];

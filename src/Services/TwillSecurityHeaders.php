@@ -5,6 +5,8 @@ namespace A17\TwillSecurityHeaders\Services;
 use A17\SecurityHeaders\SecurityHeaders;
 use A17\TwillSecurityHeaders\Models\Behaviors\Encrypt;
 use A17\TwillSecurityHeaders\Models\TwillSecurityHeader as TwillSecurityHeadersModel;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class TwillSecurityHeaders
 {
@@ -40,5 +42,10 @@ class TwillSecurityHeaders
     public function securityHeaders(): string
     {
         return $this->getCurrent()->published ? $this->getCurrent()->protected : $this->getCurrent()->unprotected;
+    }
+
+    public function runningOnTwill(): bool
+    {
+        return Str::startsWith(Route::currentRouteName(), $this->config('twill_route_name_prefix').'.');
     }
 }
