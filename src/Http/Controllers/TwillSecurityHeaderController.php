@@ -21,25 +21,16 @@ class TwillSecurityHeaderController extends ModuleController
         return redirect()->route('admin.twillSecurityHeaders.show', ['twillSecurityHeader' => $repository->theOnlyOne()->id]);
     }
 
-    /**
-     * @param int|null $parentModuleId
-     * @return array|\Illuminate\View\View|RedirectResponse
-     */
-    public function index($parentModuleId = null)
+    public function index(int|null $parentModuleId = null): mixed
     {
         return redirect()->route('admin.twillSecurityHeaders.redirectToEdit');
     }
 
-    /**
-     * @param int $id
-     * @param int|null $submoduleId
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function edit($id, $submoduleId = null)
+    public function edit(\A17\Twill\Models\Contracts\TwillModelContract|int $id): mixed
     {
         $repository = new TwillSecurityHeaderRepository(new TwillSecurityHeader());
 
-        return parent::edit($repository->theOnlyOne()->id, $submoduleId);
+        return parent::edit($repository->theOnlyOne()->id, $id);
     }
 
     protected function formData($request): array

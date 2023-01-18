@@ -2,7 +2,7 @@
 
 return [
     'middleware' => [
-        'automatic' => true,
+        'automatic' => false,
 
         'enabled_inside_twill' => false,
 
