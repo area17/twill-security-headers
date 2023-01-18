@@ -18,12 +18,12 @@ class TwillSecurityHeaderController extends ModuleController
 
     public function redirectToEdit(TwillSecurityHeaderRepository $repository): RedirectResponse
     {
-        return redirect()->route('admin.twillSecurityHeaders.show', ['twillSecurityHeader' => $repository->theOnlyOne()->id]);
+        return redirect()->route('twill.twillSecurityHeaders.show', ['twillSecurityHeader' => $repository->theOnlyOne()->id]);
     }
 
     public function index(int|null $parentModuleId = null): mixed
     {
-        return redirect()->route('admin.twillSecurityHeaders.redirectToEdit');
+        return redirect()->route('twill.twillSecurityHeaders.redirectToEdit');
     }
 
     public function edit(\A17\Twill\Models\Contracts\TwillModelContract|int $id): mixed
