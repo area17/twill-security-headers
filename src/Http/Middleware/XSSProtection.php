@@ -4,11 +4,13 @@ namespace A17\TwillSecurityHeaders\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use A17\SecurityHeaders\SecurityHeaders;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
 class XSSProtection extends Middleware
 {
-    public function handle(Request $request, Closure $next): mixed
+    public function handle(Request $request, Closure $next): Response|RedirectResponse|JsonResponse
     {
         return $this->middleware($request, $next, 'xss-protection');
     }

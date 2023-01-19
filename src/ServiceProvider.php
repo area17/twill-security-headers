@@ -3,6 +3,7 @@
 namespace A17\TwillSecurityHeaders;
 
 use Illuminate\Support\Str;
+use A17\Twill\Helpers\Capsule;
 use A17\Twill\Facades\TwillCapsules;
 use Illuminate\Contracts\Http\Kernel;
 use A17\Twill\TwillPackageServiceProvider;
@@ -13,6 +14,8 @@ class ServiceProvider extends TwillPackageServiceProvider
     /** @var bool $autoRegisterCapsules */
     protected $autoRegisterCapsules = false;
 
+    protected Capsule $capsule;
+
     public function boot(): void
     {
         $this->registerThisCapsule();
@@ -21,6 +24,8 @@ class ServiceProvider extends TwillPackageServiceProvider
 
         $this->configureMiddleware();
 
+        $this->registerViews();
+
         parent::boot();
     }
 
@@ -28,7 +33,7 @@ class ServiceProvider extends TwillPackageServiceProvider
     {
         $namespace = $this->getCapsuleNamespace();
 
-        TwillCapsules::registerPackageCapsule(
+        $this->capsule = TwillCapsules::registerPackageCapsule(
             Str::afterLast($namespace, '\\'),
             $namespace,
             $this->getPackageDirectory() . '/src',
@@ -69,5 +74,10 @@ class ServiceProvider extends TwillPackageServiceProvider
                     : $kernel->appendMiddlewareToGroup($middleware['group'], $class);
             }
         }
+    }
+
+    public function registerViews(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/resources/views', Str::kebab($this->capsule->getPlural()));
     }
 }

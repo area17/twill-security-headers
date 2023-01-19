@@ -2,17 +2,16 @@
 
 namespace A17\TwillSecurityHeaders\Services;
 
-use A17\SecurityHeaders\SecurityHeaders;
-use A17\TwillSecurityHeaders\Models\Behaviors\Encrypt;
-use A17\TwillSecurityHeaders\Models\TwillSecurityHeader as TwillSecurityHeadersModel;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
+use A17\SecurityHeaders\SecurityHeaders;
+use A17\TwillSecurityHeaders\Models\TwillSecurityHeader as TwillSecurityHeadersModel;
 
 class TwillSecurityHeaders
 {
-    use Encrypt, Config, Middleware;
-
-    public const DEFAULT_ERROR_MESSAGE = 'Invisible captcha failed.';
+    use Config;
+    use Middleware;
 
     protected array|null $config = null;
 
@@ -22,30 +21,15 @@ class TwillSecurityHeaders
 
     protected TwillSecurityHeadersModel|null $current = null;
 
-    public function published(bool $force = false): string|null
-    {
-        return $this->get('protected', 'published', $force);
-    }
-
-    protected function setProtected(): void
-    {
-        $this->protected = $this->protected();
-    }
-
-    public function getDomain(string|null $url = null): string|null
-    {
-        $url = parse_url($url ?? request()->url());
-
-        return $url['host'] ?? null;
-    }
-
-    public function securityHeaders(): string
-    {
-        return $this->getCurrent()->published ? $this->getCurrent()->protected : $this->getCurrent()->unprotected;
-    }
-
     public function runningOnTwill(): bool
     {
-        return Str::startsWith(Route::currentRouteName(), $this->config('twill_route_name_prefix').'.');
+        $prefix = config('twill.admin_route_name_prefix') ?? 'admin.';
+
+        return Str::startsWith((string) Route::currentRouteName(), $prefix);
+    }
+
+    public function getAvailableHeaders(): Collection
+    {
+        return (new Collection($this->config('headers')))->reject(fn($header) => !$header['available']);
     }
 }

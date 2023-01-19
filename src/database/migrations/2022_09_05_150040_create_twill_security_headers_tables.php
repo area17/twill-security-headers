@@ -12,30 +12,32 @@ class CreateTwillSecurityHeadersTables extends Migration
             createDefaultTableFields($table);
 
             $table->boolean('hsts_enabled')->default(true);
-            $table->json('hsts')->nullable();
+            $table->text('hsts')->nullable();
 
             $table->boolean('csp_enabled')->default(true);
-            $table->json('csp')->nullable();
+            $table->text('csp_block')->nullable();
+            $table->text('csp_report_only')->nullable();
+            $table->string('csp_security')->default('block');
 
             $table->boolean('expect_ct_enabled')->default(true);
-            $table->json('expect_ct')->nullable();
+            $table->text('expect_ct')->nullable();
 
-            $table->boolean('xss_protection_enabled')->default(true);
-            $table->json('xss_protection')->nullable();
+            $table->boolean('xss_protection_policy_enabled')->default(true);
+            $table->text('xss_protection_policy')->nullable();
 
             $table->boolean('x_frame_policy_enabled')->default(true);
-            $table->json('x_frame_policy')->nullable();
+            $table->text('x_frame_policy')->nullable();
 
             $table->boolean('x_content_type_policy_enabled')->default(true);
-            $table->json('x_content_type_policy')->nullable();
+            $table->text('x_content_type_policy')->nullable();
 
             $table->boolean('referrer_policy_enabled')->default(true);
-            $table->json('referrer_policy')->nullable();
+            $table->text('referrer_policy')->nullable();
 
             $table->boolean('permissions_policy_enabled')->default(true);
-            $table->json('permissions_policy')->nullable();
+            $table->text('permissions_policy')->nullable();
 
-            $table->json('unwanted_headers')->default('["X-Powered-By", "server", "Server"]');
+            $table->text('unwanted_headers')->nullable();
         });
 
         Schema::create('twill_security_headers_revisions', function (Blueprint $table) {

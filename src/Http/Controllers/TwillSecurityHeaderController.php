@@ -2,11 +2,12 @@
 
 namespace A17\TwillSecurityHeaders\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
 use A17\Twill\Http\Controllers\Admin\ModuleController;
 use A17\TwillSecurityHeaders\Models\TwillSecurityHeader;
 use A17\TwillSecurityHeaders\Repositories\TwillSecurityHeaderRepository;
-use Illuminate\Support\Str;
 
 class TwillSecurityHeaderController extends ModuleController
 {
@@ -18,15 +19,20 @@ class TwillSecurityHeaderController extends ModuleController
 
     public function redirectToEdit(TwillSecurityHeaderRepository $repository): RedirectResponse
     {
-        return redirect()->route('twill.twillSecurityHeaders.show', ['twillSecurityHeader' => $repository->theOnlyOne()->id]);
+        return redirect()->route($this->namePrefix() . 'twillSecurityHeaders.show', [
+            'twillSecurityHeader' => $repository->theOnlyOne()->id,
+        ]);
     }
 
-    public function index(int|null $parentModuleId = null): mixed
+    /**
+     * @return \Illuminate\Contracts\View\View|JsonResponse|RedirectResponse
+     */
+    public function index($parentModuleId = null)
     {
-        return redirect()->route('twill.twillSecurityHeaders.redirectToEdit');
+        return redirect()->route($this->namePrefix() . 'twillSecurityHeaders.redirectToEdit');
     }
 
-    public function edit(\A17\Twill\Models\Contracts\TwillModelContract|int $id): mixed
+    public function edit($id, $submoduleId = null)
     {
         $repository = new TwillSecurityHeaderRepository(new TwillSecurityHeader());
 
@@ -43,6 +49,11 @@ class TwillSecurityHeaderController extends ModuleController
 
     protected function getViewPrefix(): string|null
     {
-        return Str::kebab($this->moduleName).'::admin';
+        return Str::kebab($this->moduleName) . '::admin';
+    }
+
+    private function namePrefix(): string|null
+    {
+        return config('twill.admin_route_name_prefix');
     }
 }

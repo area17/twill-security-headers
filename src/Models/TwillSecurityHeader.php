@@ -4,68 +4,44 @@ namespace A17\TwillSecurityHeaders\Models;
 
 use A17\Twill\Models\Model;
 use A17\Twill\Models\Behaviors\HasRevisions;
-use A17\TwillSecurityHeaders\Services\Helpers;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use A17\TwillSecurityHeaders\Models\Behaviors\Encrypt;
-use A17\TwillSecurityHeaders\Support\Facades\TwillSecurityHeaders as TwillSecurityHeadersFacade;
 
 /**
- * @property string|null $domain
+ * @property bool $published
+ * @property string $csp_block
+ * @property string $csp_report_only
+ * @property string $unwanted_headers
  */
 class TwillSecurityHeader extends Model
 {
     use HasRevisions;
-    use Encrypt;
 
     protected $table = 'twill_security_headers';
 
-    protected $fillable = ['published', 'domain', 'protected', 'unprotected'];
-
-    protected $appends = ['domain_string', 'status', 'from_dot_env'];
-
-    public function getPublishedAttribute(): string|null
-    {
-        return Helpers::instance()
-            ->setCurrent($this)
-            ->published(true);
-    }
+    protected $fillable = [
+        'published',
+        'csp_enabled',
+        'csp_block',
+        'csp_report_only',
+        'expect_ct',
+        'expect_ct_enabled',
+        'hsts',
+        'hsts_enabled',
+        'permissions_policy',
+        'permissions_policy_enabled',
+        'referrer_policy',
+        'referrer_policy_enabled',
+        'x_content_type_policy',
+        'x_content_type_policy_enabled',
+        'x_frame_policy',
+        'x_frame_policy_enabled',
+        'xss_protection_policy',
+        'xss_protection_policy_enabled',
+        'unwanted_headers',
+    ];
 
     public function revisions(): HasMany
     {
         return $this->hasMany($this->getRevisionModel(), 'twill_security_headers_id')->orderBy('created_at', 'desc');
-    }
-
-    public function getDomainStringAttribute(): string|null
-    {
-        $domain = $this->domain;
-
-        if ($domain === '*') {
-            return '* (all domains)';
-        }
-
-        return $domain;
-    }
-
-    public function getConfiguredAttribute(): bool
-    {
-        return filled($this->protected) && filled($this->unprotected);
-    }
-
-    public function getStatusAttribute(): string
-    {
-        if ($this->published && $this->configured) {
-            return 'protected';
-        }
-
-        if ($this->domain === '*') {
-            return 'disabled';
-        }
-
-        return 'unprotected';
-    }
-
-    public function getFromDotEnvAttribute(): string
-    {
-        return TwillSecurityHeadersFacade::hasDotEnv() ? 'yes' : 'no';
     }
 }

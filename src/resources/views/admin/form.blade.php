@@ -1,25 +1,17 @@
-@extends('twill::layouts.form')
+@extends('twill::layouts.form', ['disableContentFieldset' => true])
 
-@php
-    use A17\TwillSecurityHeaders\Support\Facades\TwillSecurityHeaders;
-@endphp
+@section('fieldsets')
+    @foreach ($form_fields['headers'] as $header)
+        <a17-fieldset title="{{ $header['form']['title'] }}" id="id-{{ $header['type'] }}" :open="true">
+            @include('twill-security-headers::admin.form-' . $header['type'])
+        </a17-fieldset>
+    @endforeach
 
-@section('contentFields')
-    @formField('input', [
-        'type' => 'textarea',
-        'rows' => 6,
-        'name' => 'protected',
-        'label' => 'Protected',
-        'required' => true,
-        'disabled' => TwillSecurityHeaders::hasDotEnv(),
-    ])
-
-    @formField('input', [
-        'type' => 'textarea',
-        'rows' => 6,
-        'name' => 'unprotected',
-        'label' => 'Unprotected',
-        'required' => true,
-        'disabled' => TwillSecurityHeaders::hasDotEnv(),
-    ])
+    <a17-fieldset title="Unwanted headers" id="unwanted-headers" :open="true">
+        @formField('input', [
+            'name' => 'unwanted_headers',
+            'label' => 'Unwanted headers',
+            'note' => 'List all separated by comma (,).',
+        ])
+    </a17-fieldset>
 @stop
