@@ -11,7 +11,7 @@
         @formField('input', [
             'name' => 'unwanted_headers',
             'label' => 'Unwanted headers',
-            'note' => 'List all separated by comma (,).',
+            'note' => 'List all separated by comma (,)',
         ])
     </a17-fieldset>
 @stop
