@@ -2,10 +2,12 @@
 
 namespace A17\TwillSecurityHeaders\Services\Headers;
 
+use Illuminate\Support\Str;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use A17\TwillSecurityHeaders\Models\TwillSecurityHeader;
 use A17\TwillSecurityHeaders\Repositories\TwillSecurityHeaderRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class Header
 {
@@ -16,7 +18,7 @@ class Header
         $this->securityHeaders = $this->getModel();
     }
 
-    public function setHeaders(Request $request, array $header): void
+    public function setHeaders(Response|RedirectResponse|JsonResponse $response, array $header): void
     {
         if (!$this->enabled($header)) {
             return;
@@ -25,7 +27,7 @@ class Header
         $responseHeader = $this->compileHeader($header);
 
         if (filled($responseHeader)) {
-            $request->headers->set($header['header'], $responseHeader);
+            $response->headers->set($header['header'], $responseHeader);
         }
     }
 

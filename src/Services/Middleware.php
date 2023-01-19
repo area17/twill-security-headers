@@ -20,10 +20,6 @@ trait Middleware
 
         $this->removeUnwantedHeaders($response);
 
-        if (!$this->runningOnTwill()) {
-            dd($response->headers->all());
-        }
-
         return $response;
     }
 
