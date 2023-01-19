@@ -19,10 +19,10 @@ class CreateTwillSecurityHeadersTables extends Migration
             $table->text('csp_report_only')->nullable();
             $table->string('csp_security')->default('block');
 
-            $table->boolean('expect_ct_enabled')->default(true);
+            $table->boolean('expect_ct_enabled')->default(false);
             $table->text('expect_ct')->nullable();
 
-            $table->boolean('xss_protection_policy_enabled')->default(true);
+            $table->boolean('xss_protection_policy_enabled')->default(false);
             $table->text('xss_protection_policy')->nullable();
 
             $table->boolean('x_frame_policy_enabled')->default(true);
