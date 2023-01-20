@@ -3,6 +3,11 @@
     'label' => 'Enabled',
 ])
 
+@formField('checkbox', [
+    'name' => 'csp_generate_nounce',
+    'label' => 'Generate nounce',
+])
+
 @formField('input', [
     'type' => 'textarea',
     'rows' => 6,

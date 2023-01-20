@@ -2,7 +2,9 @@
 
 namespace A17\TwillSecurityHeaders\Services;
 
+use Illuminate\Support\Str;
 use A17\TwillSecurityHeaders\Services\TwillSecurityHeaders;
+use A17\TwillSecurityHeaders\Support\Facades\TwillSecurityHeaders as TwillSecurityHeadersFacade;
 
 class Helpers
 {
@@ -18,5 +20,10 @@ class Helpers
         }
 
         return app('security-headers');
+    }
+
+    public static function nounce(): string
+    {
+        return TwillSecurityHeadersFacade::nounce();
     }
 }

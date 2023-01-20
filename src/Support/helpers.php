@@ -9,3 +9,10 @@ if (!function_exists('security_headers')) {
         return Helpers::instance();
     }
 }
+
+if (!function_exists('csp_nonce')) {
+    function csp_nonce(): string
+    {
+        return Helpers::nounce();
+    }
+}

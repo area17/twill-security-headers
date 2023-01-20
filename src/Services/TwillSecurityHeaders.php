@@ -21,6 +21,8 @@ class TwillSecurityHeaders
 
     protected TwillSecurityHeadersModel|null $current = null;
 
+    protected string|null $nounce = null;
+
     public function runningOnTwill(): bool
     {
         $prefix = config('twill.admin_route_name_prefix') ?? 'admin.';
@@ -31,5 +33,10 @@ class TwillSecurityHeaders
     public function getAvailableHeaders(): Collection
     {
         return (new Collection($this->config('headers')))->reject(fn($header) => !$header['available']);
+    }
+
+    public function nounce(): string
+    {
+        return $this->nounce ??= Str::random(32);
     }
 }

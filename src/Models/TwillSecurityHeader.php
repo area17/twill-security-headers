@@ -38,6 +38,7 @@ class TwillSecurityHeader extends Model
         'xss_protection_policy',
         'xss_protection_policy_enabled',
         'unwanted_headers',
+        'csp_generate_nounce',
     ];
 
     public function revisions(): HasMany
