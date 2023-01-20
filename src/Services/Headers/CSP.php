@@ -27,7 +27,7 @@ class CSP extends Header
     public function addNounce($header): string
     {
         if (!$this->securityHeaders->csp_generate_nounce) {
-            return '';
+            return $header;
         }
 
         // Remove nounce
