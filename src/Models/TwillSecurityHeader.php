@@ -16,7 +16,7 @@ class TwillSecurityHeader extends Model
 {
     use HasRevisions;
 
-    protected $table = 'twill_security_headers';
+    protected $table = 'twill_sec_head';
 
     protected $fillable = [
         'published',
@@ -42,6 +42,6 @@ class TwillSecurityHeader extends Model
 
     public function revisions(): HasMany
     {
-        return $this->hasMany($this->getRevisionModel(), 'twill_security_headers_id')->orderBy('created_at', 'desc');
+        return $this->hasMany($this->getRevisionModel(), 'twill_sec_head_id')->orderBy('created_at', 'desc');
     }
 }

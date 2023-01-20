@@ -8,7 +8,7 @@ class CreateTwillSecurityHeadersTables extends Migration
 {
     public function up(): void
     {
-        Schema::create('twill_security_headers', function (Blueprint $table) {
+        Schema::create('twill_sec_head', function (Blueprint $table) {
             createDefaultTableFields($table);
 
             $table->boolean('hsts_enabled')->default(true);
@@ -40,14 +40,14 @@ class CreateTwillSecurityHeadersTables extends Migration
             $table->text('unwanted_headers')->nullable();
         });
 
-        Schema::create('twill_security_headers_revisions', function (Blueprint $table) {
-            createDefaultRevisionsTableFields($table, 'twill_security_headers', 'twill_security_headers');
+        Schema::create('twill_sec_head_revisions', function (Blueprint $table) {
+            createDefaultRevisionsTableFields($table, 'twill_sec_head', 'twill_sec_head');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('twill_security_headers_revisions');
-        Schema::dropIfExists('twill_security_headers');
+        Schema::dropIfExists('twill_sec_head_revisions');
+        Schema::dropIfExists('twill_sec_head');
     }
 }
