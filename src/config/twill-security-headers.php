@@ -1,8 +1,10 @@
 <?php
 
 return [
+    'enabled' => env('TWILL_SECURITY_HEADERS_ENABLED', true),
+
     'middleware' => [
-        'automatic' => true,
+        'inject' => env('TWILL_SECURITY_MIDDLEWARE_INJECTION_ENABLED', true),
 
         'enabled_inside_twill' => false,
 

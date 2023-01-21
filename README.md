@@ -33,6 +33,14 @@ composer require area17/twill-security-headers
 php artisan vendor:publish --provider="A17\TwillSecurityHeaders\ServiceProvider"
 ```
 
+## Disabling
+
+This package is enabled and injects itself automatically. To disable it you just need to add to `.env`:
+
+```dotenv
+TWILL_SECURITY_HEADERS_ENABLED=false
+```
+
 ## Contribute
 
 Please contribute to this project by submitting pull requests.

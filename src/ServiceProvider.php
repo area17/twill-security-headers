@@ -18,15 +18,15 @@ class ServiceProvider extends TwillPackageServiceProvider
 
     public function boot(): void
     {
-        $this->registerThisCapsule();
+        if ($this->registerConfig()) {
+            $this->registerThisCapsule();
 
-        $this->registerConfig();
+            $this->configureMiddleware();
 
-        $this->configureMiddleware();
+            $this->registerViews();
 
-        $this->registerViews();
-
-        parent::boot();
+            parent::boot();
+        }
     }
 
     protected function registerThisCapsule(): void
@@ -42,7 +42,7 @@ class ServiceProvider extends TwillPackageServiceProvider
         app()->singleton(TwillSecurityHeaders::class, fn() => new TwillSecurityHeaders());
     }
 
-    public function registerConfig(): void
+    public function registerConfig(): bool
     {
         $package = 'twill-security-headers';
 
@@ -53,11 +53,13 @@ class ServiceProvider extends TwillPackageServiceProvider
         $this->publishes([
             $path => config_path("{$package}.php"),
         ]);
+
+        return !!config('twill-security-headers.enabled');
     }
 
     public function configureMiddleware(): void
     {
-        if (!config('twill-security-headers.middleware.automatic')) {
+        if (!config('twill-security-headers.middleware.inject')) {
             return;
         }
 
