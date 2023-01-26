@@ -36,15 +36,6 @@ return [
             'service' => \A17\TwillSecurityHeaders\Services\Headers\CSP::class,
         ],
 
-        'expect-ct' => [
-            'available' => true,
-            'type' => 'expect-ct',
-            'form' => ['title' => 'Expect CT'],
-            'header' => 'Expect-CT',
-            'default' => ['value' => 'enforce, max-age=30'],
-            'service' => \A17\TwillSecurityHeaders\Services\Headers\ExpectCT::class,
-        ],
-
         'hsts' => [
             'available' => true,
             'type' => 'hsts',
@@ -77,7 +68,7 @@ return [
 
         'x-content-type-policy' => [
             'available' => true,
-            'type' => 'x-content-type',
+            'type' => 'x-content-type-policy',
             'form' => ['title' => 'X-Content-Type-Options'],
             'header' => 'X-Content-Type-Options',
             'default' => ['value' => 'nosniff'],
@@ -100,6 +91,15 @@ return [
             'header' => 'X-XSS-Protection',
             'default' => ['value' => '1; mode=block'],
             'service' => \A17\TwillSecurityHeaders\Services\Headers\XSSProtection::class,
+        ],
+
+        'expect-ct' => [
+            'available' => true,
+            'type' => 'expect-ct',
+            'form' => ['title' => 'Expect CT'],
+            'header' => 'Expect-CT',
+            'default' => ['value' => 'enforce, max-age=30'],
+            'service' => \A17\TwillSecurityHeaders\Services\Headers\ExpectCT::class,
         ],
     ],
 
