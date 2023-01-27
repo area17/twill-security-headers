@@ -2,9 +2,16 @@
 
 This Twill Capsule is intended to enable developers add Security Headers configuration to applications, giving users a friendly dashboard to configure these headers: 
 
+## Screenshots
+
+### CMS configuration
 ![screenshot 1](docs/screenshot01.png)
 
 ![screenshot 2](docs/screenshot02.png)
+
+### [Mozilla Observatory](https://observatory.mozilla.org) security headers check
+
+![screenshot 2](docs/screenshot03.png)
 
 ## Supported Headers
 
