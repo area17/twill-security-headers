@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $csp_block
  * @property string $csp_report_only
  * @property string $unwanted_headers
+ * @property bool $csp_generate_nounce
  */
 class TwillSecurityHeader extends Model
 {

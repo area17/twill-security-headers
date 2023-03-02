@@ -12,7 +12,7 @@ use A17\TwillSecurityHeaders\Services\Headers\RemoveUnwanted;
 trait Middleware
 {
     public function middleware(
-        Response|RedirectResponse|JsonResponse $response,
+        Response|RedirectResponse|JsonResponse|BinaryFileResponse $response,
         string|array $types = '*',
     ): Response|RedirectResponse|JsonResponse|BinaryFileResponse {
         if ($this->config('enabled_inside_twill') || !$this->runningOnTwill()) {
@@ -35,14 +35,13 @@ trait Middleware
         return $headers;
     }
 
-    public function setHeaders(Response|RedirectResponse|JsonResponse $response, array $header): void
+    public function setHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse $response, array $header): void
     {
         app($header['service'])->setHeaders($response, $header);
     }
 
-    public function removeUnwantedHeaders(
-        \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse $response,
-    ): void {
+    public function removeUnwantedHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse $response): void
+    {
         app(RemoveUnwanted::class)->remove($response);
     }
 }

@@ -6,10 +6,11 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use A17\TwillSecurityHeaders\Services\Helpers;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class CSP extends Header
 {
-    public function setHeaders(Response|RedirectResponse|JsonResponse $response, array $header): void
+    public function setHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse $response, array $header): void
     {
         if (!$this->enabled($header)) {
             return;
@@ -32,12 +33,12 @@ class CSP extends Header
 
         // Remove nounce
         $pattern = "/ 'nonce-.*?'/";
-        $replacement = "";
+        $replacement = '';
         $header = preg_replace($pattern, $replacement, $header);
 
         // Add nounce
         $pattern = '/(script-src \'self\'\ )/';
-        $replacement = "$1'nonce-".Helpers::nounce()."' ";
+        $replacement = "$1'nonce-" . Helpers::nounce() . "' ";
         $header = preg_replace($pattern, $replacement, $header);
 
         return $header;

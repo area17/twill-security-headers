@@ -14,8 +14,10 @@ abstract class Middleware
 {
     protected string $type = '*';
 
-    protected function handleRequest(Request $request, Closure $next): Response|RedirectResponse|JsonResponse|BinaryFileResponse
-    {
+    protected function handleRequest(
+        Request $request,
+        Closure $next,
+    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse {
         $response = $next($request);
 
         return TwillSecurityHeaders::middleware($response, $this->type);
