@@ -25,7 +25,7 @@ abstract class Middleware
         Request $request,
         Closure $next,
         string $type = '*',
-    ): Response|RedirectResponse|JsonResponse {
+    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse {
         $this->setType($type);
 
         return $this->handleRequest($request, $next);

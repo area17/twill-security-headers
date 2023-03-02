@@ -2,18 +2,19 @@
 
 namespace A17\TwillSecurityHeaders\Services;
 
-use A17\TwillSecurityHeaders\Services\Headers\RemoveUnwanted;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use A17\TwillSecurityHeaders\Services\Headers\RemoveUnwanted;
 
 trait Middleware
 {
     public function middleware(
         Response|RedirectResponse|JsonResponse $response,
         string|array $types = '*',
-    ): Response|RedirectResponse|JsonResponse {
+    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse {
         if ($this->config('enabled_inside_twill') || !$this->runningOnTwill()) {
             $this->getHeaders($types)->each(fn($header) => $this->setHeaders($response, $header));
         }
