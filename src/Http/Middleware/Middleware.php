@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use A17\TwillSecurityHeaders\Support\Facades\TwillSecurityHeaders;
 
 abstract class Middleware
 {
     protected string $type = '*';
 
-    protected function handleRequest(Request $request, Closure $next): Response|RedirectResponse|JsonResponse
+    protected function handleRequest(Request $request, Closure $next): Response|RedirectResponse|JsonResponse|BinaryFileResponse
     {
         $response = $next($request);
 
