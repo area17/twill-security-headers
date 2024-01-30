@@ -28,6 +28,14 @@ This capsule also adds an option for removing any unwanted headers from the resp
 
 ## Installing
 
+## Supported Versions
+Composer will manage this automatically for you, but these are the supported versions between Twill and this package.
+
+| Twill Version | HTTP Basic Auth Capsule |
+|---------------|-------------------------|
+| 3.x           | 2.x                     |
+| 2.x           | 1.x                     |
+
 ### Require the Composer package:
 
 ``` bash
