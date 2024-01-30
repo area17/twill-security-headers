@@ -2,9 +2,9 @@
 
 namespace A17\TwillSecurityHeaders\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
+use A17\Twill\Models\Contracts\TwillModelContract;
 use A17\Twill\Http\Controllers\Admin\ModuleController;
 use A17\TwillSecurityHeaders\Models\TwillSecurityHeader;
 use A17\TwillSecurityHeaders\Repositories\TwillSecurityHeaderRepository;
@@ -25,18 +25,18 @@ class TwillSecurityHeaderController extends ModuleController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\View|JsonResponse|RedirectResponse
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function index($parentModuleId = null)
+    public function index(?int $parentModuleId = null): mixed
     {
         return redirect()->route($this->namePrefix() . 'twillSecurityHeaders.redirectToEdit');
     }
 
-    public function edit($id, $submoduleId = null)
+    public function edit(TwillModelContract|int $id): mixed
     {
         $repository = new TwillSecurityHeaderRepository(new TwillSecurityHeader());
 
-        return parent::edit($repository->theOnlyOne()->id, $id);
+        return parent::edit($repository->theOnlyOne()->id);
     }
 
     protected function formData($request): array

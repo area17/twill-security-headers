@@ -2,8 +2,8 @@
 
 namespace A17\TwillSecurityHeaders\Repositories;
 
-use A17\Twill\Models\Contracts\TwillModelContract;
 use A17\Twill\Repositories\ModuleRepository;
+use A17\Twill\Models\Contracts\TwillModelContract;
 use A17\Twill\Repositories\Behaviors\HandleRevisions;
 use A17\TwillSecurityHeaders\Models\TwillSecurityHeader;
 use A17\TwillSecurityHeaders\Support\Facades\TwillSecurityHeaders;
@@ -48,7 +48,7 @@ class TwillSecurityHeaderRepository extends ModuleRepository
         return $model;
     }
 
-    public function getFormFields($object)
+    public function getFormFields(TwillModelContract $object): array
     {
         $fields = parent::getFormFields($object);
 
