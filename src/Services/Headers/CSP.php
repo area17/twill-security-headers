@@ -25,7 +25,7 @@ class CSP extends Header
         }
     }
 
-    public function addNounce($header): string
+    public function addNounce(string $header): string
     {
         if (!$this->securityHeaders->csp_generate_nounce) {
             return $header;
@@ -34,12 +34,12 @@ class CSP extends Header
         // Remove nounce
         $pattern = "/ 'nonce-.*?'/";
         $replacement = '';
-        $header = preg_replace($pattern, $replacement, $header);
+        $header = preg_replace($pattern, $replacement, $header) ?? '';
 
         // Add nounce
         $pattern = '/(script-src \'self\'\ )/';
         $replacement = "$1'nonce-" . Helpers::nounce() . "' ";
-        $header = preg_replace($pattern, $replacement, $header);
+        $header = preg_replace($pattern, $replacement, $header) ?? '';
 
         return $header;
     }
