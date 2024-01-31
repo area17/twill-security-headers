@@ -53,6 +53,9 @@ composer require area17/twill-security-headers
 php artisan vendor:publish --provider="A17\TwillSecurityHeaders\ServiceProvider"
 ```
 
+### CSP config
+Creating CSP policies usually takes time and it's hard to write them manually. You can make use if [Report URI](https://report-uri.com/home/generate), a great tool that allows you to paste your current policy, edit and generate a new string to be pasted on the package.  
+
 ## Disabling
 
 This package is enabled and injects itself automatically. To disable it you just need to add to `.env`:
