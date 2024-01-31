@@ -24,7 +24,12 @@ This Twill Capsule is intended to enable developers add Security Headers configu
 - [Expect-CT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT) (deprecated by most browsers)
 - [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) (non-standard, not for production)
 
-This capsule also adds an option for removing any unwanted headers from the response. 
+## Unwanted headers
+This capsule also has an option for removing any unwanted headers from the response. Update the `config/twill-security-headers.php` file to add any unwanted headers from the response: 
+
+```php
+'unwanted-headers' => ['X-Powered-By', 'server', 'Server'],
+```
 
 ## Installing
 
