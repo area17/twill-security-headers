@@ -53,8 +53,22 @@ composer require area17/twill-security-headers
 php artisan vendor:publish --provider="A17\TwillSecurityHeaders\ServiceProvider"
 ```
 
-### Usage
+### Usage and menu
 It's pretty straightforward, once installed you will have access to the menu option `Twill Security Headers`, which is a single page having all the supported headers that you can enable, disable and edit the properties to sent with the response.
+
+If you are clearing the Twill menu in order to create a new one yourself, you will need to add it manually:
+
+```php
+TwillNavigation::clear();
+
+...
+
+TwillNavigation::addLink(
+    NavigationLink::make()
+        ->forModule('TwillSecurityHeaders')
+        ->title('Security headers')
+);
+```
 
 ### CSP config
 Creating CSP policies usually takes time and it's hard to write them manually. You can make use if [Report URI](https://report-uri.com/home/generate), a great tool that allows you to paste your current policy, edit and generate a new string to be pasted on the package.  
