@@ -8,6 +8,7 @@ use A17\Twill\Facades\TwillCapsules;
 use Illuminate\Contracts\Http\Kernel;
 use A17\Twill\TwillPackageServiceProvider;
 use A17\TwillSecurityHeaders\Services\TwillSecurityHeaders;
+use A17\TwillSecurityHeaders\Support\Facades\TwillSecurityHeaders as TwillSecurityHeadersFacade;
 
 class ServiceProvider extends TwillPackageServiceProvider
 {
@@ -43,6 +44,8 @@ class ServiceProvider extends TwillPackageServiceProvider
         );
 
         app()->singleton(TwillSecurityHeaders::class, fn() => new TwillSecurityHeaders());
+
+        TwillSecurityHeadersFacade::configureNonce();
     }
 
     public function registerConfig(): bool

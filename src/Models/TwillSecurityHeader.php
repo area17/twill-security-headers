@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $csp_block
  * @property string $csp_report_only
  * @property string $unwanted_headers
- * @property bool $csp_generate_nounce
+ * @property bool $csp_generate_nonce
  */
 class TwillSecurityHeader extends Model
 {
@@ -39,7 +39,7 @@ class TwillSecurityHeader extends Model
         'xss_protection_policy',
         'xss_protection_policy_enabled',
         'unwanted_headers',
-        'csp_generate_nounce',
+        'csp_generate_nonce',
     ];
 
     public function revisions(): HasMany

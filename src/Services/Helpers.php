@@ -22,8 +22,8 @@ class Helpers
         return app('security-headers');
     }
 
-    public static function nounce(): string
+    public static function nonce(): string
     {
-        return TwillSecurityHeadersFacade::nounce();
+        return TwillSecurityHeadersFacade::nonce();
     }
 }
