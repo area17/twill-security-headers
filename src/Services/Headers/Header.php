@@ -52,4 +52,13 @@ class Header
     {
         return Str::snake(Str::camel($string));
     }
+
+    public function sanitizeHeaderString(string|null $header): string|null
+    {
+        if (!is_string($header)) {
+            return $header;
+        }
+
+        return str_replace(["\n", "\r"], '', $header);
+    }
 }

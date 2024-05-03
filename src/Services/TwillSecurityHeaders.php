@@ -37,6 +37,21 @@ class TwillSecurityHeaders
 
     public function nounce(): string
     {
+        if (self::isRunningOnVite()) {
+            return \Illuminate\Support\Facades\Vite::cspNonce();
+        }
+
         return $this->nounce ??= Str::random(32);
+    }
+
+    public static function isRunningOnVite(): bool
+    {
+        $onVite = class_exists(\Illuminate\Support\Facades\Vite::class);
+
+        if ($onVite) {
+            \Illuminate\Support\Facades\Vite::useCspNonce();
+        }
+
+        return $onVite;
     }
 }
