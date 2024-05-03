@@ -16,11 +16,11 @@ class CSP extends Header
             return;
         }
 
-        if (filled($header = $this->securityHeaders->csp_block)) {
+        if (filled($header = $this->sanitizeHeaderString($this->securityHeaders->csp_block))) {
             $response->headers->set('Content-Security-Policy', $this->addNounce($header));
         }
 
-        if (filled($header = $this->securityHeaders->csp_report_only)) {
+        if (filled($header = $this->sanitizeHeaderString($this->securityHeaders->csp_report_only))) {
             $response->headers->set('Content-Security-Policy-Report-Only', $this->addNounce($header));
         }
     }
