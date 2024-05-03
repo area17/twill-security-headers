@@ -13,6 +13,6 @@ if (!function_exists('security_headers')) {
 if (!function_exists('csp_nonce')) {
     function csp_nonce(): string
     {
-        return Helpers::nounce();
+        return Helpers::nonce();
     }
 }

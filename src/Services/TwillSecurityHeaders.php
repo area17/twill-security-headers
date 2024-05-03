@@ -4,6 +4,7 @@ namespace A17\TwillSecurityHeaders\Services;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Route;
 use A17\SecurityHeaders\SecurityHeaders;
 use A17\TwillSecurityHeaders\Models\TwillSecurityHeader as TwillSecurityHeadersModel;
@@ -21,7 +22,7 @@ class TwillSecurityHeaders
 
     protected TwillSecurityHeadersModel|null $current = null;
 
-    protected string|null $nounce = null;
+    protected string|null $nonce = null;
 
     public function runningOnTwill(): bool
     {
@@ -35,21 +36,32 @@ class TwillSecurityHeaders
         return (new Collection($this->config('headers')))->reject(fn($header) => !$header['available']);
     }
 
-    public function nounce(): string
+    public function nonce(): string
     {
-        $this->nounce ??= Str::random(32);
-
-        self::configureVite($this->nounce);
-
-        return $this->nounce;
+        return $this->nonce;
     }
 
-    public static function configureVite(string $nounce): bool
+    public function configureNonce(): void
+    {
+        $this->nonce ??= Str::random(32);
+
+        $this->configureVite($this->nonce);
+    }
+
+    public function configureVite(string $nonce): bool
     {
         $onVite = class_exists(\Illuminate\Support\Facades\Vite::class);
 
         if ($onVite) {
-            \Illuminate\Support\Facades\Vite::useCspNonce($nounce);
+            \Illuminate\Support\Facades\Vite::useCspNonce($nonce);
+
+            \Illuminate\Support\Facades\Vite::useScriptTagAttributes([
+                'nonce' => $nonce,
+            ]);
+
+            \Illuminate\Support\Facades\Vite::useStyleTagAttributes([
+                'nonce' => $nonce,
+            ]);
         }
 
         return $onVite;

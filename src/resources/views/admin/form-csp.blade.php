@@ -4,8 +4,8 @@
 ])
 
 @formField('checkbox', [
-    'name' => 'csp_generate_nounce',
-    'label' => 'Generate nounce',
+    'name' => 'csp_generate_nonce',
+    'label' => 'Generate nonce',
 ])
 
 @formField('input', [
