@@ -6,15 +6,16 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use A17\TwillSecurityHeaders\Services\Headers\RemoveUnwanted;
 
 trait Middleware
 {
     public function middleware(
-        Response|RedirectResponse|JsonResponse|BinaryFileResponse $response,
+        Response|RedirectResponse|JsonResponse|BinaryFileResponse|StreamedResponse $response,
         string|array $types = '*',
-    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse {
+    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse|StreamedResponse {
         if ($this->config('enabled_inside_twill') || !$this->runningOnTwill()) {
             $this->getHeaders($types)->each(fn($header) => $this->setHeaders($response, $header));
         }
@@ -35,12 +36,12 @@ trait Middleware
         return $headers;
     }
 
-    public function setHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse $response, array $header): void
+    public function setHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse|StreamedResponse $response, array $header): void
     {
         app($header['service'])->setHeaders($response, $header);
     }
 
-    public function removeUnwantedHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse $response): void
+    public function removeUnwantedHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse|StreamedResponse $response): void
     {
         app(RemoveUnwanted::class)->remove($response);
     }

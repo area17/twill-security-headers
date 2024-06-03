@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExpectCT extends Middleware
 {
-    public function handle(Request $request, Closure $next): Response|RedirectResponse|JsonResponse|BinaryFileResponse
+    public function handle(Request $request, Closure $next): Response|RedirectResponse|JsonResponse|BinaryFileResponse|StreamedResponse
     {
         return $this->middleware($request, $next, 'expect-ct');
     }

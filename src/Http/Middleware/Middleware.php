@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use A17\TwillSecurityHeaders\Support\Facades\TwillSecurityHeaders;
 
@@ -17,7 +18,7 @@ abstract class Middleware
     protected function handleRequest(
         Request $request,
         Closure $next,
-    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse {
+    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse|StreamedResponse {
         $response = $next($request);
 
         return TwillSecurityHeaders::middleware($response, $this->type);
@@ -27,7 +28,7 @@ abstract class Middleware
         Request $request,
         Closure $next,
         string $type = '*',
-    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse {
+    ): Response|RedirectResponse|JsonResponse|BinaryFileResponse|StreamedResponse {
         $this->setType($type);
 
         return $this->handleRequest($request, $next);
