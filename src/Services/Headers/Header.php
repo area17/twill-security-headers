@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use A17\TwillSecurityHeaders\Models\TwillSecurityHeader;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use A17\TwillSecurityHeaders\Repositories\TwillSecurityHeaderRepository;
@@ -19,7 +20,7 @@ class Header
         $this->securityHeaders = $this->getModel();
     }
 
-    public function setHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse $response, array $header): void
+    public function setHeaders(Response|RedirectResponse|JsonResponse|BinaryFileResponse|StreamedResponse $response, array $header): void
     {
         if (!$this->enabled($header)) {
             return;
