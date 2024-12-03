@@ -16,3 +16,10 @@ if (!function_exists('csp_nonce')) {
         return Helpers::nonce();
     }
 }
+
+if (!function_exists('twill_csp_nonce')) {
+    function twill_csp_nonce(): string
+    {
+        return Helpers::nonce();
+    }
+}
