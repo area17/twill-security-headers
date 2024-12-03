@@ -38,7 +38,7 @@ class CSP extends Header
         $header = preg_replace($pattern, $replacement, $header) ?? '';
 
         // Add nonce
-        $search = ['script-src', 'style-src'];
+        $search = ['script-src', 'script-src-elem', 'style-src', 'style-src-elem'];
 
         foreach ($search as $value) {
             $pattern = "/($value\s)/";
