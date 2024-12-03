@@ -19,7 +19,7 @@
       "A17\\TwillSecurityHeaders\\": "src"
     },
     "files": [
-      "src/Support/helpers.php",
+      "src/Support/helpers.php"
     ]
   },
   "extra": {
